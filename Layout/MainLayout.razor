@@ -1,0 +1,60 @@
+﻿@inherits LayoutComponentBase
+<div class="flex flex-col lg:flex-row min-h-screen w-full">
+    <!-- Sidebar Navigation - Mejorado para móvil -->
+    <aside class="lg:w-64 xl:w-72 bg-gray-900 text-white flex-shrink-0">
+        <nav class="h-full flex flex-col p-4">
+            <!-- Logo y título -->
+            <header class="mb-6 lg:mb-8">
+                <h1 class="font-bold text-xl lg:text-2xl flex items-center gap-2">
+                    <span class="text-2xl">📦</span>
+                    <span>StockFlow</span>
+                </h1>
+                <p class="text-gray-400 text-sm mt-1">Sistema de Gestión</p>
+            </header>
+
+            <!-- Menú de navegación -->
+            <ul class="space-y-2 flex-1">
+                <li>
+                    <NavLink href="/" 
+                        class="w-full text-left p-3 rounded-lg bg-blue-600 hover:bg-blue-700 transition-all duration-200 flex items-center gap-3 
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                        aria-current="page">
+                        <span class="text-xl" aria-hidden="true">📊</span>
+                        <span>Dashboard</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/inventario"
+                            class="w-full visited:text-gray-300 text-left p-3 rounded-lg hover:bg-gray-800 transition-colors duration-200 
+                                    flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-gray-700 
+                                    focus:ring-offset-2 focus:ring-offset-gray-900"
+                            activeClass="bg-gray-800">
+                        <span class="text-xl" aria-hidden="true">📦</span>
+                        <span>Inventario</span>
+                    </NavLink>
+                </li>
+            </ul>
+
+            <!-- Perfil de usuario -->
+            <footer class="pt-4 mt-6 border-t border-gray-700">
+                <button class="w-full flex items-center gap-3 p-2 hover:bg-gray-800 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-700">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="font-bold">A</span>
+                    </div>
+                    <div class="flex-1 min-w-0 text-left">
+                        <span class="block font-medium truncate">Admin</span>
+                        <span class="text-xs text-gray-400 truncate">administrador@empresa.com</span>
+                    </div>
+                    <span class="text-gray-400 flex-shrink-0" aria-hidden="true">▼</span>
+                </button>
+            </footer>
+        </nav>
+    </aside>
+    
+    <!-- Contenido principal -->
+    <main class="flex-1 w-full overflow-auto">
+        <article class="h-full w-full">
+            @Body
+        </article>
+    </main>
+</div>
