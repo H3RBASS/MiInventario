@@ -16,3 +16,4 @@ publish/
 *.nupkg
 *.snupkg
 packages/
+.vercel
