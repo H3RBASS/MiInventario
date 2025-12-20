@@ -1,0 +1,22 @@
+# Archivos de desarrollo
+bin/
+obj/
+.vs/
+.vscode/
+.idea/
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Configuraciones locales
+appsettings.Development.json
+launchSettings.json
+
+# No subir estos si son grandes
+.publish/
+TestResults/
