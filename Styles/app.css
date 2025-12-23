@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import "tailwindcss/preflight";
 /* wwwroot/css/app.css */
 @font-face {
     font-family: 'Nunito';

@@ -1,9 +1,13 @@
 // tailwind.config.js
 module.exports = {
   content: [
-    "./**/*.razor",
-    "./**/*.html",
-    "./**/*.cs"
+    "./**/*.{razor,html,cshtml}",
+    "./**/*.{razor,html}",
+    "./*.html",
+    "./Pages/**/*.razor",
+    "./Components/**/*.razor",
+    "./Shared/**/*.razor",
+    "./wwwroot/**/*.html"
   ],
   theme: {
     extend: {

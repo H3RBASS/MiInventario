@@ -5,6 +5,12 @@ public partial class Home
     public string NombreProducto { get; set; } = string.Empty;
     public string PrecioProducto { get; set; } = string.Empty;
     public string CantidadProducto { get; set; } = string.Empty;
+    private bool AlertaVentana {get; set;} = false;
+
+    private void ejecutar ()
+    {
+        Guardar();
+    }
 
     private void AbrirModal()
     {
@@ -15,6 +21,8 @@ public partial class Home
     {
         MostrarModal = false;
         NombreProducto = string.Empty;
+        PrecioProducto = string.Empty;
+        CantidadProducto = string.Empty;
     }
 
     private void Guardar()
@@ -23,7 +31,8 @@ public partial class Home
             string.IsNullOrWhiteSpace(PrecioProducto) ||
             string.IsNullOrWhiteSpace(CantidadProducto))
         {
-            // Manejar validación aquí (por ejemplo, mostrar un mensaje de error)
+            AlertaVentana = true;
+            // Manejar validación aquí (por ejemplo, mostrar un mensaje de error
             return;
         }
         // Guardar lógica aquí
