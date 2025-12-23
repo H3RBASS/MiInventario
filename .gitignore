@@ -1,19 +1,112 @@
-# Build Folders
-bin/
-obj/
-publish/
-
 # Visual Studio
 .vs/
 *.user
+*.userosscache
+*.sln.docstates
 *.suo
-*.vscode/
+*.tt
+*.tts
+*.log
+*.swp
+*~
+*.db
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 
 # Rider
 .idea/
+*.sln.iml
 
-# NuGet
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userprefs
+*.lock.json
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Tailwind CSS
+tailwind.config.js
+postcss.config.js
+
+# Blazor
+wwwroot/dist/
+bin/
+obj/
+appsettings.Development.json
+
+# NuGet packages
 *.nupkg
-*.snupkg
 packages/
-.vercel
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Output del build
+dist/
+out/
+publish/
+
+# Logs
+*.log
+logs/
+
+# Azure
+*.publishsettings
+
+# Backup
+*.bak
+*.backup
+
+# IDE
+*.swp
+*~
+.idea/
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de configuración local
+appsettings.local.json
+*.local
+
+# Archivos generados por Tailwind
+wwwroot/css/site.css
+wwwroot/css/output.css

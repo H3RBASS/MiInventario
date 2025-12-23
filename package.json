@@ -1,0 +1,13 @@
+{
+  "name": "miapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.min.css --watch",
+    "build": "npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.min.css --minify",
+    "build:prod": "npm run build"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18"
+  }
+}
