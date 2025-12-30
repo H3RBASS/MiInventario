@@ -41,62 +41,53 @@
                                         Añadir producto
                                     </h3>
 
-                                    <EditForm Model="Productos" OnValidSubmit="Guardar">
-
-                                    <EditForm/>
-                                    <!-- Input -->
-                                    <div class="flex flex-col gap-4">
-                                        <div class="">
+                                    <EditForm Model="ProductosForm" OnValidSubmit="Guardar" class="flex flex-col gap-4">
+                                         <DataAnnotationsValidator />
                                             <span>Nombre</span>
-                                            <input
-                                                type="text" required
-                                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                @bind="NombreProducto"/>
-                                        </div>
+                                            <InputText @bind-Value="ProductosForm.Name"
+                                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                                            <ValidationMessage For="() => ProductosForm.Name" />
 
-                                        <div>
-                                            <span>Precio(Bs)</span>
-                                            <input
-                                            type="number" min="0" placeholder=""
-                                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                @bind="PrecioProducto"/>
-                                        </div>
+                                            <span>Precio</span>
+                                            <InputNumber @bind-Value="ProductosForm.Price"  min="0" step="0.01"
+                                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                                            <ValidationMessage For="() => ProductosForm.Price" />
 
-                                        <div>
-                                        <span>Cantidad</span>
-                                        <input
-                                            type="number" min="0" step="1"
-                                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            @bind="CantidadProducto"/>
-                                        </div>
+                                            <span>Cantidad</span>
+                                            <InputNumber @bind-Value="ProductosForm.Quantity"  min="0" step="1"
+                                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                                            <ValidationMessage For="() => ProductosForm.Quantity" />
 
-                                        <div>
-                                        <span>Categoria</span>
-                                        <select name="Opciones" id="1" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                            <option value="Aseo Personal">Cuidado Personal</option>
-                                            <option value="Cocina">Cocina</option>
-                                            <option value="Enlatados">Enlatados</option>
-                                            <option value="Limpieza">Limpieza</option>
-                                            <option value="Plasticos">Plasticos</option>
-                                            <option value="Reposteria">Reposteria</option>
-                                            <option value="Abarrotes">Abarrotes</option>
-                                        </select>
-                                        </div>
-                                    </div>
-                                    <!-- Botones -->
-                                    <div class="flex justify-end gap-3 mt-6">
-                                        <button
-                                            class="px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer transition duration-200 hover:scale-105"
-                                            @onclick="CerrarModal">
-                                            Cancelar
-                                        </button>
+                                            <ValidationMessage For="() => ProductosForm.Category" />
+                                            <span>Categoria</span>
+                                            <InputSelect @bind-Value="ProductosForm.Category" 
+                                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                    <option value="" disabled selected hidden>Seleccione una categoría</option>
+                                                    <option value="Aseo Personal">Cuidado Personal</option>
+                                                    <option value="Cocina">Cocina</option>
+                                                    <option value="Enlatados">Enlatados</option>
+                                                    <option value="Limpieza">Limpieza</option>
+                                                    <option value="Plasticos">Plasticos</option>
+                                                    <option value="Reposteria">Reposteria</option>
+                                                    <option value="Abarrotes">Abarrotes</option>
+                                            </InputSelect>
 
-                                        <button
-                                            class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 cursor-pointer transition duration-200 hover:scale-105"
-                                            @onclick="Guardar">
-                                            Guardar
-                                        </button>
-                                    </div>
+                                        <!-- Botones -->
+                                        <div class="flex justify-end gap-3 mt-6">
+                                            <button
+                                                class="px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer transition duration-200 hover:scale-105"
+                                                type="button"
+                                                @onclick="CerrarModal">
+                                                Cancelar
+                                            </button>
+
+                                            <button
+                                                class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 cursor-pointer transition duration-200 hover:scale-105"
+                                                type="submit">
+                                                Guardar
+                                            </button>
+                                        </div>
+                                    </EditForm>
                                 </div>
                             </div>
                         }
@@ -111,7 +102,7 @@
                     <div class="flex justify-between items-start">
                         <div class="min-w-0">
                             <p class="text-blue-100 text-sm truncate">Valor Total</p>
-                            <h2 class="text-2xl lg:text-3xl font-bold mt-2 truncate">@productoService.GetTotalPrice() @PrecioProducto Bs</h2>
+                            <h2 class="text-2xl lg:text-3xl font-bold mt-2 truncate">@productoService.GetTotalPrice()Bs</h2>
                             <p class="text-blue-100 text-sm mt-2">+12.5% vs mes anterior</p>
                         </div>
                         <div class="bg-white/20 p-3 rounded-full shrink-0 ml-2">
@@ -119,7 +110,7 @@
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-white/20">
-                        <p class="text-sm truncate">Valor promedio por producto: $245</p>
+                        <p class="text-sm truncate">Valor promedio por Inventario: Bs @productoService.GetAveragePrice()</p>
                     </div>
                 </article>
 
@@ -171,7 +162,7 @@
                     <div class="flex justify-between items-start mb-4">
                         <div class="min-w-0">
                             <p class="text-gray-500 text-sm truncate">Agotados</p>
-                            <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mt-2 truncate">8</h2>
+                            <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mt-2 truncate">@productoService.GetOutStockCount()</h2>
                         </div>
                         <div class="bg-orange-100 p-3 rounded-full shrink-0 ml-2">
                             <span class="text-xl lg:text-2xl text-orange-600" aria-hidden="true">🛑</span>
@@ -265,87 +256,73 @@
                                     <th class="text-left py-3 text-gray-500 font-medium text-sm">Estado</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                <!-- Fila 1 -->
+                                <!-- Fila -->
+                                @foreach (var producto in servicioProductos.GetAllProducts())
+                                {
+                                <!-- Nombre Atributos -->
                                 <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors duration-150">
                                     <td class="py-3">
                                         <div class="flex items-center min-w-0">
                                             <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3 shrink-0">
-                                                <span aria-hidden="true">🎧</span>
                                             </div>
-                                            <span class="truncate">Auriculares BT</span>
+                                            <span class="truncate">@producto.Name</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 text-sm">Audio</td>
+
+                                    <!-- Categoria -->
+                                    <td class="py-3 text-sm">@producto.Category</td>
+
+                                    <!-- Cantidad -->
                                     <td class="py-3">
                                         <div class="flex items-center">
                                             <div class="w-16 lg:w-20 bg-gray-200 rounded-full h-2 mr-2">
-                                                <div class="bg-green-500 h-2 rounded-full" style="width: 65%"></div>
+                                                @if (producto.Quantity > 51)
+                                                {
+                                                    <div class="bg-green-500 h-2 rounded-full" style="width: @producto.Quantity%"></div>
+                                                }
+                                                else if (producto.Quantity <= 50 && producto.Quantity >= 21)
+                                                {
+                                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: @producto.Quantity%"></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="bg-red-500 h-2 rounded-full" style="width: @producto.Quantity%"></div>
+                                                }
                                             </div>
-                                            <span class="text-sm whitespace-nowrap">42/65</span>
+                                            <span class="text-sm whitespace-nowrap">@producto.Quantity</span>
                                         </div>
                                     </td>
                                     <td class="py-3 font-bold text-sm">148</td>
-                                    <td class="py-3">
-                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                                            Óptimo
-                                        </span>
-                                    </td>
+
+                                    <!-- Estado -->
+                                    @if (producto.Quantity > 51)
+                                    {
+                                        <td class="py-3">
+                                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                                                Óptimo
+                                            </span>
+                                        </td>
+                                    }
+                                    else if (producto.Quantity <= 50 && producto.Quantity >= 21)
+                                    {
+                                        <td class="py-3">
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                                                Bajo
+                                            </span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="py-3">
+                                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                                                Crítico
+                                            </span>
+                                        </td>
+                                    }
                                 </tr>
-                                
-                                <!-- Fila 2 -->
-                                <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors duration-150">
-                                    <td class="py-3">
-                                        <div class="flex items-center min-w-0">
-                                            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3 shrink-0">
-                                                <span aria-hidden="true">🔋</span>
-                                            </div>
-                                            <span class="truncate">Power Bank 10K</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 text-sm">Accesorios</td>
-                                    <td class="py-3">
-                                        <div class="flex items-center">
-                                            <div class="w-16 lg:w-20 bg-gray-200 rounded-full h-2 mr-2">
-                                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 30%"></div>
-                                            </div>
-                                            <span class="text-sm whitespace-nowrap">15/50</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 font-bold text-sm">112</td>
-                                    <td class="py-3">
-                                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                                            Bajo
-                                        </span>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Fila 3 -->
-                                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                                    <td class="py-3">
-                                        <div class="flex items-center min-w-0">
-                                            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3 shrink-0">
-                                                <span aria-hidden="true">⌨️</span>
-                                            </div>
-                                            <span class="truncate">Teclado Inalámbrico</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 text-sm">Periféricos</td>
-                                    <td class="py-3">
-                                        <div class="flex items-center">
-                                            <div class="w-16 lg:w-20 bg-gray-200 rounded-full h-2 mr-2">
-                                                <div class="bg-red-500 h-2 rounded-full" style="width: 15%"></div>
-                                            </div>
-                                            <span class="text-sm whitespace-nowrap">3/20</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 font-bold text-sm">98</td>
-                                    <td class="py-3">
-                                        <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                                            Crítico
-                                        </span>
-                                    </td>
-                                </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

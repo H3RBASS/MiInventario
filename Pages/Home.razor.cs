@@ -12,61 +12,42 @@ public partial class Home
     private ProductService servicioProductos { get; set; } = default!;
 
     //variable para controlar la visibilidad del modal
-    private string NombreProducto = "";
-    private decimal? PrecioProducto;
-    private int? CantidadProducto;
-    private string CategoriaProducto = "";
-    private int? StockProducto;
     public bool MostrarModal { get; set; }
     private bool AlertaVentana {get; set;} = false;
-    private bool ValueNull = false;
 
     private Product ProductosForm = new Product();
 
     //metodos
-    private void CrearProducto()
-    {
-       servicioProductos.CrearProducto(
-       NombreProducto, 
-       CategoriaProducto, 
-       PrecioProducto.Value, 
-       CantidadProducto.Value, 
-       StockProducto.Value);
-
-    }
     protected void Guardar()
-        {
-            if (PrecioProducto == null || CantidadProducto == null || StockProducto == null)
-                {
-                    AlertaVentana = true;
-                    return;
-                }
-                    CrearProducto();
-                    CerrarModal();
-                    limpiarCampos();
-                    Console.WriteLine(NombreProducto + PrecioProducto);              
-        }
-    private void limpiarCampos()
     {
-        NombreProducto = "";
-        CategoriaProducto = "";
-        PrecioProducto = null;
-        CantidadProducto = null;
-        StockProducto = null;
+           servicioProductos.CrearProducto(
+            ProductosForm.Name,
+            ProductosForm.Category,
+            ProductosForm.Price!.Value,
+            ProductosForm.Quantity
+        );
+
+        // Limpiamos el formulario
+        LimpiarFormulario();
+        CerrarModal();
     }
+
     private void AbrirModal()
-        {
-            MostrarModal = true;
-        }
+    {
+        LimpiarFormulario();
+        MostrarModal = true;
+    }
 
     private void CerrarModal()
-        {
-            limpiarCampos();
-            MostrarModal = false;
-            AlertaVentana = false;
-        }
+    {
+        LimpiarFormulario();
+        MostrarModal = false;
+    }
 
-        
+    private void LimpiarFormulario()
+    {
+        ProductosForm = new Product();
+    }
 }   
     
 

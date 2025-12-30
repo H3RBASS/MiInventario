@@ -27,7 +27,7 @@ namespace MiInventario.Services
         {
             ListaProductos.Add(nuevoProducto);
         }
-        public void CrearProducto(string nombre, string categoria, decimal precio, decimal costo, 
+        public void CrearProducto(string nombre, string categoria, decimal precio, 
         int cantidad)
         {
              // Creamos un objeto Producto (producto real)
@@ -48,10 +48,30 @@ namespace MiInventario.Services
             decimal total = 0;
             foreach (var producto in ListaProductos)
             {
-                total += producto.Price * producto.Quantity;
-                total = Convert.ToInt32(total);
+                total += producto.Price ?? 0;
             }
             return total;
+        }
+        public decimal GetAveragePrice()
+        {
+            if (ListaProductos.Count == 0)
+                return 0;
+
+            int total = Convert.ToInt32(GetTotalPrice());
+            return total / ListaProductos.Count;
+
+        }
+        public int GetOutStockCount()
+        {
+            int outOfStock = 0;
+            foreach (var producto in ListaProductos)
+            {
+                if (producto.Quantity == 0)
+                {
+                    outOfStock++;
+                }
+            }
+            return outOfStock;
         }
     }
 }
