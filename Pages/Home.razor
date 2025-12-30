@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using MiInventario.Services
+@inject ProductService productoService
 
 <PageTitle>Dashboard</PageTitle>
 
@@ -39,28 +41,46 @@
                                         Añadir producto
                                     </h3>
 
+                                    <EditForm Model="Productos" OnValidSubmit="Guardar">
+
+                                    <EditForm/>
                                     <!-- Input -->
                                     <div class="flex flex-col gap-4">
                                         <div class="">
                                             <span>Nombre</span>
                                             <input
-                                                type="text"
+                                                type="text" required
                                                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                @bind="NombreProducto" />
+                                                @bind="NombreProducto"/>
                                         </div>
+
                                         <div>
-                                            <span>Precio</span>
+                                            <span>Precio(Bs)</span>
                                             <input
-                                            type="number" min="0"
+                                            type="number" min="0" placeholder=""
                                                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                @bind="PrecioProducto" />
+                                                @bind="PrecioProducto"/>
                                         </div>
+
                                         <div>
                                         <span>Cantidad</span>
                                         <input
                                             type="number" min="0" step="1"
                                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            @bind="CantidadProducto" />
+                                            @bind="CantidadProducto"/>
+                                        </div>
+
+                                        <div>
+                                        <span>Categoria</span>
+                                        <select name="Opciones" id="1" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <option value="Aseo Personal">Cuidado Personal</option>
+                                            <option value="Cocina">Cocina</option>
+                                            <option value="Enlatados">Enlatados</option>
+                                            <option value="Limpieza">Limpieza</option>
+                                            <option value="Plasticos">Plasticos</option>
+                                            <option value="Reposteria">Reposteria</option>
+                                            <option value="Abarrotes">Abarrotes</option>
+                                        </select>
                                         </div>
                                     </div>
                                     <!-- Botones -->
@@ -73,7 +93,7 @@
 
                                         <button
                                             class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 cursor-pointer transition duration-200 hover:scale-105"
-                                            @onclick="ejecutar">
+                                            @onclick="Guardar">
                                             Guardar
                                         </button>
                                     </div>
@@ -91,7 +111,7 @@
                     <div class="flex justify-between items-start">
                         <div class="min-w-0">
                             <p class="text-blue-100 text-sm truncate">Valor Total</p>
-                            <h2 class="text-2xl lg:text-3xl font-bold mt-2 truncate">$48,560</h2>
+                            <h2 class="text-2xl lg:text-3xl font-bold mt-2 truncate">@productoService.GetTotalPrice() @PrecioProducto Bs</h2>
                             <p class="text-blue-100 text-sm mt-2">+12.5% vs mes anterior</p>
                         </div>
                         <div class="bg-white/20 p-3 rounded-full shrink-0 ml-2">
@@ -108,7 +128,7 @@
                     <div class="flex justify-between items-start">
                         <div class="min-w-0">
                             <p class="text-gray-500 text-sm truncate">Productos Totales</p>
-                            <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mt-2 truncate">1,248</h2>
+                            <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mt-2 truncate">@productoService.CountAllProducts()</h2>
                             <p class="text-green-600 text-sm font-medium mt-2">+45 productos este mes</p>
                         </div>
                         <div class="bg-green-100 p-3 rounded-full shrink-0 ml-2">
@@ -231,7 +251,7 @@
                 <!-- Top Products -->
                 <article class="bg-white rounded-xl shadow-lg p-4 lg:p-6">
                     <header class="mb-4 lg:mb-6">
-                        <h3 class="text-lg font-bold text-gray-800">Productos más Vendidos</h3>
+                        <h3 class="text-lg font-bold text-gray-800">Productos</h3>
                     </header>
                     
                     <div class="overflow-x-auto">

@@ -1,43 +1,73 @@
 namespace MiInventario.Pages;
+using System.Collections.Generic;
+using MiInventario.Modelos;
+using MiInventario.Services;
+using Microsoft.AspNetCore.Components;
+using System.Runtime.CompilerServices;
+
 public partial class Home
 {
+    // Inyectamos el servicio de productos
+    [Inject]
+    private ProductService servicioProductos { get; set; } = default!;
+
+    //variable para controlar la visibilidad del modal
+    private string NombreProducto = "";
+    private decimal? PrecioProducto;
+    private int? CantidadProducto;
+    private string CategoriaProducto = "";
+    private int? StockProducto;
     public bool MostrarModal { get; set; }
-    public string NombreProducto { get; set; } = string.Empty;
-    public string PrecioProducto { get; set; } = string.Empty;
-    public string CantidadProducto { get; set; } = string.Empty;
     private bool AlertaVentana {get; set;} = false;
+    private bool ValueNull = false;
 
-    private void ejecutar ()
+    private Product ProductosForm = new Product();
+
+    //metodos
+    private void CrearProducto()
     {
-        Guardar();
-    }
+       servicioProductos.CrearProducto(
+       NombreProducto, 
+       CategoriaProducto, 
+       PrecioProducto.Value, 
+       CantidadProducto.Value, 
+       StockProducto.Value);
 
+    }
+    protected void Guardar()
+        {
+            if (PrecioProducto == null || CantidadProducto == null || StockProducto == null)
+                {
+                    AlertaVentana = true;
+                    return;
+                }
+                    CrearProducto();
+                    CerrarModal();
+                    limpiarCampos();
+                    Console.WriteLine(NombreProducto + PrecioProducto);              
+        }
+    private void limpiarCampos()
+    {
+        NombreProducto = "";
+        CategoriaProducto = "";
+        PrecioProducto = null;
+        CantidadProducto = null;
+        StockProducto = null;
+    }
     private void AbrirModal()
-    {
-        MostrarModal = true;
-    }
+        {
+            MostrarModal = true;
+        }
 
     private void CerrarModal()
-    {
-        MostrarModal = false;
-        NombreProducto = string.Empty;
-        PrecioProducto = string.Empty;
-        CantidadProducto = string.Empty;
-    }
-
-    private void Guardar()
-    {
-        if (string.IsNullOrWhiteSpace(NombreProducto) ||
-            string.IsNullOrWhiteSpace(PrecioProducto) ||
-            string.IsNullOrWhiteSpace(CantidadProducto))
         {
-            AlertaVentana = true;
-            // Manejar validación aquí (por ejemplo, mostrar un mensaje de error
-            return;
+            limpiarCampos();
+            MostrarModal = false;
+            AlertaVentana = false;
         }
-        // Guardar lógica aquí
-        CerrarModal();
-    }
 
+        
 }   
+    
+
 
